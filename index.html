@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SNKgames – Official Website</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:#eee; margin:0; }
+    header { background:#222; padding:20px; text-align:center; }
+    header h1 { margin:0; color:#00ff99; }
+    nav { background:#333; padding:10px; text-align:center; }
+    nav a { color:#00ff99; margin:0 15px; text-decoration:none; }
+    nav a:hover { text-decoration:underline; }
+    section { padding:20px; max-width:800px; margin:auto; }
+    h2 { color:#00ff99; }
+    form input, form textarea { width:100%; margin-bottom:10px; padding:8px; border:none; border-radius:4px; }
+    form button { background:#00ff99; border:none; padding:10px 15px; cursor:pointer; border-radius:4px; }
+    #status { margin-top:10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SNKgames</h1>
+    <p>Official Roblox Development Group</p>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#games">Games</a>
+    <a href="#apply">Apply</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We are SNKgames – a Roblox development group dedicated to creating fun, exciting, and unique games for the community. 
+    Our mission is to build awesome experiences and grow a strong international community of players and developers.</p>
+  </section>
+
+  <section id="games">
+    <h2>Our Games</h2>
+    <ul>
+      <li><a href="https://www.roblox.com" target="_blank">Game 1</a></li>
+      <li><a href="https://www.roblox.com" target="_blank">Game 2</a></li>
+      <!-- Add more games with links here -->
+    </ul>
+  </section>
+
+  <section id="apply">
+    <h2>Apply as Developer</h2>
+    <p>If you want to join the SNKgames team, please fill out the form below. 
+    All applications will be reviewed, and if accepted, you will be contacted by email.</p>
+    <form id="applicationForm">
+      <input type="text" id="username" placeholder="Roblox Username" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="number" id="age" placeholder="Age (min. 12)" required>
+      <textarea id="reason" placeholder="Why do you want to join SNKgames?" required></textarea>
+      <button type="submit">Send Application</button>
+    </form>
+    <p id="status"></p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>📧 Email: snkgames@email.com</p>
+    <p>🔗 Roblox Group: <a href="https://www.roblox.com/de/communities/35018497/SNKgames#!/about" target="_blank">Join SNKgames</a></p>
+  </section>
+
+  <script>
+    const webhookURL = "YOUR_DISCORD_WEBHOOK_HERE"; // Replace with your Discord Webhook URL
+
+    document.getElementById("applicationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const age = document.getElementById("age").value;
+      const reason = document.getElementById("reason").value;
+
+      const message = {
+        content: `📋 **New SNKgames Application**\n👤 Username: ${username}\n📧 Email: ${email}\n🎂 Age: ${age}\n📝 Reason: ${reason}`
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(message)
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById("status").innerText = "✅ Application sent to Discord!";
+        } else {
+          document.getElementById("status").innerText = "❌ Error sending application.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
